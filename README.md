@@ -2,34 +2,24 @@
 How to create Choose From List component using VB.NET
 Hi friends, today i will explain you about 'how to create CFL(Choose From List) in VB.NET'
 
-Using Here
-----------
-1.Visual Studio
-2.SQL Server Reporting Service(SSRS) / SQL Server Management Studio (SSMS) - DBMS
+# Using Here
+1. Visual Studio
+2. SQL Server Reporting Service(SSRS) / SQL Server Management Studio (SSMS) - DBMS
 
-Here,
-=====
+# Here,
 > Now I create new project  name as 'ChooseFromList'
 > Create two forms, 1 for our own design and another for CFL design
 
-Steps
-=====
+# Steps
 1. Design your own Form
 2. Design a CFL Form
 3. Call the CFL Form by load the data and show it in your own Form
 
-
-
 We will see the above steps in detail
-
-
 Okay, here we needs two forms are our own form and CFL form
-
 So i created two forms
 
-
-1. Design your own form
-========================
+# 1. Design your own form
 > This is my form design (4 textboxs and 5 labels for item name,code,unit,price).
 > When i click item text box, The CFL will load and appears below.
 > Then the CFL selection will be filled in Item , Code, Unit and Price automatically.
@@ -51,30 +41,25 @@ End Sub
 The FunLoadCFL() function and ColumnValue() array variable is belongs to CFL Form
 some of the above code will be cleared below. continue watching
 
-2. Design a CFL form And Open it as a dialog
-============================================
+# 2. Design a CFL form And Open it as a dialog
 > This is my CFL Form Design (1 label, 1 textbox, 1 data gridview)
 > The data will be loaded in data grid view. When you search data in textbox, it will selected in it.
 > In here, I define 3 functions for CFL form, 2 function for DB connection & Data selection 
 and 3 events
-Function for CFL form
-----------------------
+# Function for CFL form
 1. FunLoadCFL() --> Used to loads  CFL form, data in grid view and fixed the grid view
 2. FunSearch() --> Used to select the searched data in textbox on data grid view.
 3. FunSaveSelection() --> Used to save the selected row values in array variable and close it.
-Function for DB connection and selection
-----------------------------------------
+# Function for DB connection and selection
 4. FunConnectDB() --> used to connect DB
 5. FunFillDT() --> used to select the data from database table and filled it with .NET datatable
-Events
---------
+# Events
 1. textbox_search_TextChanged() --> callFunSearch() function
 2. CFL_KeyDown() --> close the CFL Form when escape key is pressed
 3. dgvload_CellClick() --> when select in data grid view, call the function FunSaveSelection()
 
 
-The User Defined Function are below
-====================================
+# The User Defined Function are below
 Public Sub FunLoadCFL(ByVal str_query As String, ByVal left As Integer, ByVal Top As Integer,
 Optional ByVal frm_Width As Integer = 400, Optional ByVal frm_Height As Integer = 200)
         Me.StartPosition = FormStartPosition.Manual   'Say Location
@@ -85,7 +70,6 @@ Optional ByVal frm_Width As Integer = 400, Optional ByVal frm_Height As Integer 
         dgvload.SelectionMode = DataGridViewSelectionMode.FullRowSelect    'Select full row 
         dgvload.AllowUserToAddRows = False            'Don't allow user to add the grid
         dgvload.AllowUserToDeleteRows = False	      'Don't allow user to delete the grid
-
         dt = New DataTable                            'define datatable
         dt = FunFillDT(str_query)		      'Fill data in data table
         If dt.Rows.Count > 0 Then		      'If no row in datatable don't load the grid    
@@ -152,8 +136,7 @@ End Sub
 
 
 
-The Events are Below
-====================
+# The Events are Below
 Private Sub txtsearch_TextChanged(sender As Object, e As EventArgs) Handles txtsearch.TextChanged
         FunSearch(txtsearch.Text.Trim())
 End Sub
@@ -168,8 +151,7 @@ Private Sub dgvload_CellClick(sender As Object, e As DataGridViewCellEventArgs) 
         FunSaveSelection()
 End Sub
 
-Code for MyForm
-----------------
+# Code for MyForm
 Dim xleft As Integer = Me.Location.X + txtitem.Location.X + 20
 Dim ytop As Integer = Me.Location.Y + txtitem.Location.Y + txtitem.Height + 35
 CFL.FunLoadCFL("select * from item", xleft, ytop)
@@ -179,8 +161,7 @@ If Not IsNothing(CFL.ColumnValue) Then
     txtprice.Text = CFL.ColumnValue(2)
     txtunit.Text = CFL.ColumnValue(3)
 End If
-Code for CFL Form
------------------
+# Code for CFL Form
 #Region "Imports"
     Imports System.Windows.Forms
     Imports System.Data.SqlClient
