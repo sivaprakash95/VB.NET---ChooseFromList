@@ -9,14 +9,14 @@ Using Here
 
 Here,
 =====
->Now I create new project  name as 'ChooseFromList'
->Create two forms, 1 for our own design and another for CFL design
+> Now I create new project  name as 'ChooseFromList'
+> Create two forms, 1 for our own design and another for CFL design
 
 Steps
 =====
-1.Design your own Form
-2.Design a CFL Form
-3.Call the CFL Form by load the data and show it in your own Form
+1. Design your own Form
+2. Design a CFL Form
+3. Call the CFL Form by load the data and show it in your own Form
 
 
 
@@ -57,22 +57,16 @@ some of the above code will be cleared below. continue watching
 > The data will be loaded in data grid view. When you search data in textbox, it will selected in it.
 > In here, I define 3 functions for CFL form, 2 function for DB connection & Data selection 
 and 3 events
-
-
 Function for CFL form
 ----------------------
 1. FunLoadCFL() --> Used to loads  CFL form, data in grid view and fixed the grid view
 2. FunSearch() --> Used to select the searched data in textbox on data grid view.
 3. FunSaveSelection() --> Used to save the selected row values in array variable and close it.
-
-
 Function for DB connection and selection
 ----------------------------------------
 4. FunConnectDB() --> used to connect DB
 5. FunFillDT() --> used to select the data from database table and filled it with .NET datatable
-
-
-3 Events
+Events
 --------
 1. textbox_search_TextChanged() --> callFunSearch() function
 2. CFL_KeyDown() --> close the CFL Form when escape key is pressed
@@ -96,12 +90,11 @@ Optional ByVal frm_Width As Integer = 400, Optional ByVal frm_Height As Integer 
         dt = FunFillDT(str_query)		      'Fill data in data table
         If dt.Rows.Count > 0 Then		      'If no row in datatable don't load the grid    
             dgvload.DataSource = dt		      'load the data grid with datatable
-            dgvload.Columns(0).DefaultCellStyle.Font = New Font(FontFamily.GenericSansSerif, 9, FontStyle.Bold)					      'Set Font style for column bold and big
+            dgvload.Columns(0).DefaultCellStyle.Font = New Font(FontFamily.GenericSansSerif, 9, FontStyle.Bold)'Set Font style for column bold and big
         End If
         txtsearch.Text = ""			      'onload set the search text box empty
         Me.ShowDialog()				      'Show/Open it as a dialog window
 End Sub
-
 Private Sub FunSearch(ByVal searchtext As String)
         Try
             If txtsearch.Text.Trim() <> "" Then		'If textbox search is not empty allow
@@ -117,7 +110,6 @@ Private Sub FunSearch(ByVal searchtext As String)
 
         End Try
 End Sub
-
 Private Sub FunSaveSelection()
         Try
             ReDim ColumnValue(dgvload.ColumnCount)   'Re_Declare the array size as grid column count
@@ -130,8 +122,7 @@ Private Sub FunSaveSelection()
         Catch ex As Exception
 
         End Try
-End Sub
-    
+End Sub    
 Public Function FunFillDT(ByVal str_query As String) As Object
         Try
             If IsNothing(con) Then
@@ -145,14 +136,13 @@ Public Function FunFillDT(ByVal str_query As String) As Object
         End Try
         Return dt
 End Function
-
 Public Sub FunConnectDB()
         Try
             If Not IsNothing(con) Then
                 con = Nothing
             End If
             con = New SqlConnection("DATA SOURCE = 'DESKTOP-074SEAB'; INTEGRATED SECURITY = false; INITIAL CATALOG = 'Items'; USER ID ='sa'; PASSWORD ='sql@123';")
-'''''''server name : DESKTOP-074SEAB, DB Name : Items, DBUser : sa, DBPassword : sql@123
+	    'server name : DESKTOP-074SEAB, DB Name : Items, DBUser : sa, DBPassword : sql@123
             con.Open()
             con.Close()
         Catch ex As Exception
@@ -164,7 +154,6 @@ End Sub
 
 The Events are Below
 ====================
-
 Private Sub txtsearch_TextChanged(sender As Object, e As EventArgs) Handles txtsearch.TextChanged
         FunSearch(txtsearch.Text.Trim())
 End Sub
@@ -175,16 +164,9 @@ Private Sub CFL_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
             Me.Close()
         End If
 End Sub
-
 Private Sub dgvload_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvload.CellClick
         FunSaveSelection()
 End Sub
-
-okay, Lets do the code in visual studio and check it
-
-The source code is in discription\
-
-Now it will be speed
 
 Code for MyForm
 ----------------
@@ -197,23 +179,18 @@ If Not IsNothing(CFL.ColumnValue) Then
     txtprice.Text = CFL.ColumnValue(2)
     txtunit.Text = CFL.ColumnValue(3)
 End If
-
 Code for CFL Form
 -----------------
 #Region "Imports"
     Imports System.Windows.Forms
     Imports System.Data.SqlClient
 #End Region
-
-
 #Region "Declaration"
     Public con As SqlConnection
     Public da As SqlDataAdapter
     Public dt As DataTable
     Public ColumnValue() As String
 #End Region
-
-
 #Region "User Function"
     Public Sub FunLoadCFL(ByVal str_query As String, ByVal left As Integer, ByVal Top As Integer, Optional ByVal frm_Width As Integer = 400, Optional ByVal frm_Height As Integer = 200)
         Me.StartPosition = FormStartPosition.Manual
@@ -236,7 +213,6 @@ Code for CFL Form
         txtsearch.Text = ""
         Me.ShowDialog()
     End Sub
-
     Private Sub FunSearch(ByVal searchtext As String)
         Try
             If txtsearch.Text.Trim() <> "" Then
@@ -278,7 +254,6 @@ Code for CFL Form
         End Try
         Return dt
     End Function
-
     Sub FunConnectDB()
         Try
             If Not IsNothing(con) Then
@@ -292,6 +267,3 @@ Code for CFL Form
         End Try
     End Sub
 #End Region
-
-Now I build it
-Lets we run it to check
