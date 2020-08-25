@@ -25,6 +25,7 @@ So i created two forms
 > Then the CFL selection will be filled in Item , Code, Unit and Price automatically.
 > In Here, I define 1 event and its code for load the CFL by query and fill the form data
 
+```
 Private Sub txtitem_Click(sender As Object, e As EventArgs) Handles txtitem.Click
 	Dim xleft As Integer = Me.Location.X + txtitem.Location.X + 20 ' X postion of CFL Form
         Dim ytop As Integer = Me.Location.Y + txtitem.Location.Y + txtitem.Height + 35 ' Y Postion
@@ -36,7 +37,7 @@ Private Sub txtitem_Click(sender As Object, e As EventArgs) Handles txtitem.Clic
             txtunit.Text = CFL.ColumnValue(3)		  ' Fill the next cell data in unit box
         End If
 End Sub
-
+```
 
 The FunLoadCFL() function and ColumnValue() array variable is belongs to CFL Form
 some of the above code will be cleared below. continue watching
